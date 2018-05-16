@@ -1,14 +1,10 @@
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { PageNotFoundComponent }    from './not-found.component';
+import { PageNotFoundComponent } from './not-found.component';
 
 const appRoutes: Routes = [
-  {
-    path: 'profiles',
-    loadChildren: './profiles/profiles.module#ProfilesModule'
-  },
-  { path: '',   redirectTo: '/profiles', pathMatch: 'full' },
+  { path: '',   redirectTo: 'profiles', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

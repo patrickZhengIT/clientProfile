@@ -1,8 +1,54 @@
-<main>
-<my-node-manage (onAdd) = "add($event)" (onDelete) = "delete()"></my-node-manage>
+<h2>Input new User Profile </h2>
 <div class="container">
-  <h1>Node Display</h1>
-  <tree-root #tree [nodes]="nodes" [options]="options"></tree-root>
+    <form [formGroup]="userForm"
+          (ngSubmit)="onSubmit()"
+          novalidate>
+
+        <mat-form-field>
+            <input matInput
+                    placeholder="User Id"
+                    formControlName="userId"
+            >
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput
+                    placeholder="First Name"
+                    formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput
+                    placeholder="Last Name"
+                    formControlName="lastName">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput
+                    placeholder="Display Name"
+                    formControlName="displayName">
+        </mat-form-field>
+
+        <div>
+            <button mat-raised-button
+                    color="accent"
+                    type="submit"
+                    class="btn btn-success">Create</button> &nbsp;
+
+            <button mat-raised-button
+                    color="warn"
+                    type="reset"
+                    (click)="clear()"
+                    class="btn btn-danger">Clear</button>
+
+        </div>
+
+
+    </form>
+
 </div>
-</main>
+
+
+
+
+
 

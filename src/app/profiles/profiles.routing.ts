@@ -1,4 +1,4 @@
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ProfilesComponent } from './container/profiles.component';
@@ -6,9 +6,11 @@ import { ProfilesListComponent } from './components/profilesList.component';
 import { ProfilesDetailComponent } from './components/profilesDetail.component';
 import { ProfilesAddComponent } from './components/profilesAdd.component';
 
+import { ProfileDetailResolver } from './services/profilesDetail.resolver.service';
+
 const profilesRoutes: Routes = [
   {
-    path: '',
+    path: 'profiles',
     component: ProfilesComponent,
     children: [
       {
@@ -18,6 +20,9 @@ const profilesRoutes: Routes = [
           {
             path: ':id',
             component: ProfilesDetailComponent,
+            resolve: {
+              profile: ProfileDetailResolver
+            }
           },
           {
             path: '',
@@ -35,6 +40,9 @@ const profilesRoutes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    ProfileDetailResolver
   ]
 })
 

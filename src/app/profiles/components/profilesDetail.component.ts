@@ -17,7 +17,7 @@ export class ProfilesDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -29,30 +29,20 @@ export class ProfilesDetailComponent implements OnInit {
   }
 
   cancel() {
-    this.gotoCrises();
+    this.gotoProfiles();
   }
 
   save() {
     this.profile.displayName = this.editName;
-    this.gotoCrises();
+    this.gotoProfiles();
   }
 
-  canDeactivate(): Observable<boolean> | boolean {
-    // Allow synchronous navigation (`true`) if no profile or the profile is unchanged
-    if (!this.profile || this.profile.displayName === this.editName) {
-      return true;
-    }
-    // Otherwise ask the user with the dialog service and return its
-    // observable which resolves to true or false when the user decides
-  }
-
-  gotoCrises() {
+  gotoProfiles() {
     let profileId = this.profile ? this.profile.userId : null;
     // Pass along the profile id if available
     // so that the profileListComponent can select that profile.
-    // Add a totally useless `foo` parameter for kicks.
     // Relative navigation back to the crises
-    this.router.navigate(['../', { id: profileId, foo: 'foo' }], { relativeTo: this.route });
+    this.router.navigate(['../', { id: profileId }], { relativeTo: this.route });
   }
 }
 

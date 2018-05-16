@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Profile } from '../model/profile';
 import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ProfilesService {
@@ -14,7 +15,11 @@ export class ProfilesService {
 
   getProfiles() {
     return of(this.profiles);
-
   }
 
+  getProfile(id: number | string) {
+    return this.getProfiles().pipe(
+      map(profiles => profiles.find(profile => profile.userId === +id))
+    );
+  }
 }
