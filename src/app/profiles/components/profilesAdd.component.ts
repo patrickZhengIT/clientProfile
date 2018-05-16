@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class ProfilesAddComponent implements OnInit {
   userForm: FormGroup;
-// TODO: refactor so that html could use ngfor
   readonly attributes =
     {
       email: [null],
