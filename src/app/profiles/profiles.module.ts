@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule }   from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material';
+import { MatDialogModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ProfilesComponent } from './container/profiles.component';
 import { ProfilesListComponent } from './components/profilesList.component';
 import { ProfilesDetailComponent } from './components/profilesDetail.component';
 import { ProfilesAddComponent } from './components/profilesAdd.component';
+import { ConfirmDialogComponent } from './components/confirmDialog.component';
 
 import { ProfilesService } from './services/profiles.service';
 
@@ -18,6 +20,7 @@ import { ProfilesRoutingModule } from './profiles.routing';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
     NoopAnimationsModule,
     MaterialModule,
     ProfilesRoutingModule
@@ -26,11 +29,13 @@ import { ProfilesRoutingModule } from './profiles.routing';
     ProfilesComponent,
     ProfilesListComponent,
     ProfilesDetailComponent,
-    ProfilesAddComponent      
+    ProfilesAddComponent,
+    ConfirmDialogComponent
   ],
   providers: [
     ProfilesService
-  ]
+  ],
+  entryComponents: [ConfirmDialogComponent]
 })
 
 export class ProfilesModule {}

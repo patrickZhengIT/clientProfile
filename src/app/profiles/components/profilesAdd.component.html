@@ -6,8 +6,8 @@
 
         <mat-form-field>
             <input matInput
-                    placeholder="User Id"
-                    formControlName="userId"
+                    placeholder="Email"
+                    formControlName="email"
             >
         </mat-form-field>
 
@@ -27,7 +27,21 @@
                     placeholder="Display Name"
                     formControlName="displayName">
         </mat-form-field>
-
+        <mat-form-field>
+            <input matInput
+                    placeholder="Description of Meal preference"
+                    formControlName="preference">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput
+                    placeholder="Department"
+                    formControlName="department">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput
+                    placeholder="Team"
+                    formControlName="team">
+        </mat-form-field>
         <div>
             <button mat-raised-button
                     color="accent"
@@ -39,12 +53,8 @@
                     type="reset"
                     (click)="clear()"
                     class="btn btn-danger">Clear</button>
-
         </div>
-
-
     </form>
-
 </div>
 
 

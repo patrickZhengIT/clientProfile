@@ -38,7 +38,7 @@ export class ProfilesDetailComponent implements OnInit {
   }
 
   gotoProfiles() {
-    let profileId = this.profile ? this.profile.userId : null;
+    const profileId = this.profile ? this.profile.userId : null;
     // Pass along the profile id if available
     // so that the profileListComponent can select that profile.
     // Relative navigation back to the crises

@@ -1,4 +1,4 @@
-export class Profile{
+export class Profile {
     userId: Number;
     email: string;
     firstName: string;
@@ -6,12 +6,10 @@ export class Profile{
     displayName: string;
     description: string;
     department: string;
-    team: string
-    
+    team: string;
+
     constructor(userId: Number, displayName: string) {
       this.userId = userId;
       this.displayName = displayName;
     }
-
-
   }
