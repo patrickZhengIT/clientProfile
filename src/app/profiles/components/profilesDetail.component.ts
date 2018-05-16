@@ -28,16 +28,7 @@ export class ProfilesDetailComponent implements OnInit {
       });
   }
 
-  cancel() {
-    this.gotoProfiles();
-  }
-
-  save() {
-    this.profile.displayName = this.editName;
-    this.gotoProfiles();
-  }
-
-  gotoProfiles() {
+   goBack() {
     const profileId = this.profile ? this.profile.userId : null;
     // Pass along the profile id if available
     // so that the profileListComponent can select that profile.
