@@ -1,0 +1,8 @@
+<main>
+<my-node-manage (onAdd) = "add($event)" (onDelete) = "delete()"></my-node-manage>
+<div class="container">
+  <h1>Node Display</h1>
+  <tree-root #tree [nodes]="nodes" [options]="options"></tree-root>
+</div>
+</main>
+
