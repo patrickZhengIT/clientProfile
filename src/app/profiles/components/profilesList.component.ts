@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { Profile } from '../model/profile';
-import { ProfilesService } from '../services/profiles.service';
+import * as ProfilesSelectors from '../reducers';
+import * as ProfilesActions from '../actions/profiles';
+import { State } from '../reducers/profiles';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -16,15 +19,15 @@ export class ProfilesListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private service: ProfilesService
+    private store: Store<State>
   ) {}
 
   ngOnInit() {
-    this.profiles$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
+    this.profiles$ = this.store.select(ProfilesSelectors.selectProfiles);
+
+    this.route.paramMap.subscribe( (params: ParamMap) => {
         this.selectedId = +params.get('id');
-        return this.service.getProfiles();
-      })
-    );
+        this.store.dispatch(new ProfilesActions.Load());
+    });
   }
 }
