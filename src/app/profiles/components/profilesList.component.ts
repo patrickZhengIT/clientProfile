@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -7,23 +7,26 @@ import * as ProfilesSelectors from '../reducers';
 import * as ProfilesActions from '../actions/profiles';
 import { State } from '../reducers/profiles';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   templateUrl: './profilesList.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./profilesList.component.scss'],
 })
 export class ProfilesListComponent implements OnInit {
   profiles$: Observable<Profile[]>;
+  error$: Observable<string>;
   selectedId: number;
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<State>
-  ) {}
+  ) {
+    this.profiles$ = this.store.select(ProfilesSelectors.selectProfiles);
+    this.error$ = this.store.select(ProfilesSelectors.selectError);
+  }
 
   ngOnInit() {
-    this.profiles$ = this.store.select(ProfilesSelectors.selectProfiles);
 
     this.route.paramMap.subscribe( (params: ParamMap) => {
         this.selectedId = +params.get('id');

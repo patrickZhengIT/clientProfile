@@ -7,7 +7,8 @@ export enum ProfilesActionTypes {
   LoadError = '[Profiles] Load Error',
   Add = '[Profiles] Add',
   AddComplete = '[Profiles] Add Complete',
-  AddError = '[Profiles] Add Error'
+  AddError = '[Profiles] Add Error',
+  Select = '[Profile] Select'
 }
 
 export class Load implements Action {
@@ -46,10 +47,18 @@ export class AddComplete implements Action {
     constructor(public payload: string) {}
   }
 
+  export class Select implements Action {
+    readonly type = ProfilesActionTypes.Select;
+
+    constructor(public payload: string) {}
+  }
+
+
 
 export type ProfilesActions = Load
  | LoadComplete
  | LoadError
  | Add
  | AddComplete
- | AddError;
+ | AddError
+ | Select;

@@ -18,9 +18,10 @@ export class ProfilesService {
   }
 
   getProfile(id: number | string) {
-    return this.getProfiles().pipe(
-      map(profiles => profiles.find(profile => profile.userId === +id))
-    );
+    return this.http.get<Profile>(this.dataUrl + '/' + id)
+      .pipe(
+        tap(profile => console.log(profile))
+      );
   }
 
   addProfile (profile: Profile): Observable<Profile> {
