@@ -6,7 +6,8 @@ import { Profile } from '../model/profile';
 import * as ProfilesSelectors from '../reducers';
 import * as ProfilesActions from '../actions/profiles';
 import { State } from '../reducers/profiles';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   templateUrl: './profilesList.component.html',
@@ -29,5 +30,10 @@ export class ProfilesListComponent implements OnInit {
     this.route.paramMap.subscribe( (params: ParamMap) => {
         this.store.dispatch(new ProfilesActions.Load());
     });
+    interval(30000).pipe(
+      tap( () => {
+        this.store.dispatch(new ProfilesActions.Load());
+      })
+    ).subscribe();
   }
 }
