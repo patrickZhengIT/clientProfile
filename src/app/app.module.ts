@@ -24,7 +24,7 @@ import { PageNotFoundComponent } from './not-found.component';
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
-      maxAge: 5
+      maxAge: 30
     })
   ],
   declarations: [
