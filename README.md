@@ -1,6 +1,7 @@
-# TreeNgrx
+# ProfileNgrx
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
+The project uses NGRX to manage the state.
 
 ## Development server
 
