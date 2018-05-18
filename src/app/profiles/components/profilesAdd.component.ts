@@ -1,17 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProfilesService } from '../services/profiles.service';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Profile } from '../model/profile';
 import { MatDialog, MatDialogConfig} from '@angular/material';
 import { ConfirmDialogComponent } from './confirmDialog.component';
 import { Router } from '@angular/router';
+
+import { Store } from '@ngrx/store';
+import { ActionsSubject } from '@ngrx/store';
+
+import * as ProfilesSelectors from '../reducers';
+import * as ProfilesActions from '../actions/profiles';
+import { State } from '../reducers/profiles';
+import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
+
 @Component({
   templateUrl: './profilesAdd.component.html',
   styleUrls: ['./profilesAdd.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfilesAddComponent implements OnInit {
+export class ProfilesAddComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
-// TODO: refactor so that html could use ngfor
+  activeSub: Subscription;
+  error$: Observable<string>;
   readonly attributes =
     {
       email: [null],
@@ -26,13 +37,26 @@ export class ProfilesAddComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private service: ProfilesService,
     private dialog: MatDialog,
-    private router: Router
-  ) { }
+    private router: Router,
+    private store: Store<State>,
+    private actionsSubject: ActionsSubject
+  ) {
+    this.error$ = this.store.select(ProfilesSelectors.selectAddError);
+    this.activeSub = this.actionsSubject.subscribe(data => {
+      if (data.type === '[Profiles] Add Complete') {
+        this.openConfirmDialog();
+        this.store.dispatch(new ProfilesActions.Load());
+      }
+   });
+   }
 
   ngOnInit() {
     this.createForm();
+  }
+
+  ngOnDestroy() {
+    this.activeSub.unsubscribe();
   }
 
   createForm() {
@@ -41,10 +65,7 @@ export class ProfilesAddComponent implements OnInit {
 
   onSubmit() {
     const profileInfo = this.prepareProfile();
-    this.service.addProfile(profileInfo).subscribe( () => {
-      this.openConfirmDialog();
-      this.router.navigate(['/profiles', { id: 0 }]);
-    });
+    this.store.dispatch(new ProfilesActions.Add(profileInfo));
   }
 
   prepareProfile() {

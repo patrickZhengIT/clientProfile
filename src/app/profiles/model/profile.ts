@@ -7,9 +7,4 @@ export class Profile {
     description: string;
     department: string;
     team: string;
-
-    constructor(userId: Number, displayName: string) {
-      this.userId = userId;
-      this.displayName = displayName;
-    }
   }

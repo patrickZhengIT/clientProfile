@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
@@ -18,10 +18,7 @@ import { Profile } from '../model/profile';
 import {
   map,
   switchMap,
-  skip,
-  takeUntil,
-  catchError,
-  mapTo,
+  catchError
 } from 'rxjs/operators';
 
 
@@ -34,6 +31,17 @@ export class ProfilesEffects {
         return this.service.getProfiles().pipe(
          map((profiles: Profile[]) => new LoadComplete(profiles)),
          catchError(err => of(new LoadError(err)))
+        );
+    })
+  );
+
+  @Effect()
+  add$: Observable<Action> = this.actions$.pipe(
+    ofType<Add>(ProfilesActionTypes.Add),
+    switchMap( (action: Add) => {
+        return this.service.addProfile(action.payload).pipe(
+         map((profile: Profile) => new AddComplete(profile)),
+         catchError(err => of(new AddError(err)))
         );
     })
   );

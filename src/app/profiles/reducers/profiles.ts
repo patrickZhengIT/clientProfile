@@ -1,18 +1,19 @@
-import { createSelector } from '@ngrx/store';
 import { Profile } from '../model/profile';
 import { ProfilesActions, ProfilesActionTypes } from '../actions/profiles';
 
 export interface State {
   profiles: Profile[] | null;
   selectedId: string | null;
-  error: string;
+  loadError: string;
+  addError: string;
 }
 
 
 export const initialState: State = {
     profiles: null,
     selectedId: null,
-    error: null
+    loadError: null,
+    addError: null
 };
 
 export function reducer(
@@ -22,14 +23,29 @@ export function reducer(
     case ProfilesActionTypes.LoadComplete:
         return {
             ...state,
+            loadError: null,
             profiles: action.payload
+        };
+    case ProfilesActionTypes.AddComplete:
+        return {
+            ...state,
+            addError: null
         };
     case ProfilesActionTypes.Select:
         return {
             ...state,
             selectedId: action.payload
         };
-
+    case ProfilesActionTypes.LoadError:
+        return {
+            ...state,
+            loadError: action.payload
+        };
+    case ProfilesActionTypes.AddError:
+        return {
+            ...state,
+            addError: action.payload
+        };
     default: {
       return state;
     }
@@ -37,5 +53,6 @@ export function reducer(
 }
 
 export const getProfiles = (state: State) => state.profiles;
-export const getError = (state: State) => state.error;
+export const getLoadError = (state: State) => state.loadError;
+export const getAddError = (state: State) => state.addError;
 export const getSelectedId = (state: State) => state.selectedId;

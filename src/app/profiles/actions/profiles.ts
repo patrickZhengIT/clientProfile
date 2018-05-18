@@ -30,7 +30,7 @@ export class LoadError implements Action {
 }
 
 export class Add implements Action {
-  readonly type = ProfilesActionTypes.Load;
+  readonly type = ProfilesActionTypes.Add;
 
   constructor(public payload: Profile) {}
 }
@@ -38,7 +38,7 @@ export class Add implements Action {
 export class AddComplete implements Action {
     readonly type = ProfilesActionTypes.AddComplete;
 
-    constructor(public payload: Profile[]) {}
+    constructor(public payload: Profile) {}
   }
 
   export class AddError implements Action {

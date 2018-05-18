@@ -1,10 +1,9 @@
 <mat-list class="items">
-  <mat-list-item *ngFor="let profile of profiles$ | async"
-    [class.selected]="profile.userId === selectedId">
+  <mat-list-item *ngFor="let profile of profiles$ | async">
     <a [routerLink]="[profile.userId]">
       <span class="badge">{{ profile.userId }}</span>{{ profile.displayName }}
     </a>
   </mat-list-item>
 </mat-list>
-<mat-card-footer><span *ngIf="error$">{{error$}}</span></mat-card-footer>
+<mat-card-footer><span *ngIf="error">{{error}}</span></mat-card-footer>
 <router-outlet></router-outlet>

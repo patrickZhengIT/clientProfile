@@ -17,13 +17,6 @@ export class ProfilesService {
       );
   }
 
-  getProfile(id: number | string) {
-    return this.http.get<Profile>(this.dataUrl + '/' + id)
-      .pipe(
-        tap(profile => console.log(profile))
-      );
-  }
-
   addProfile (profile: Profile): Observable<Profile> {
     return this.http.post<Profile>(this.dataUrl, profile).pipe(
       tap( data => console.log(data))

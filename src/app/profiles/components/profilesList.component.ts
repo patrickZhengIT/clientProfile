@@ -11,25 +11,22 @@ import { Observable } from 'rxjs';
 @Component({
   templateUrl: './profilesList.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./profilesList.component.scss'],
+  styleUrls: ['./profilesList.component.scss']
 })
 export class ProfilesListComponent implements OnInit {
   profiles$: Observable<Profile[]>;
   error$: Observable<string>;
-  selectedId: number;
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<State>
   ) {
     this.profiles$ = this.store.select(ProfilesSelectors.selectProfiles);
-    this.error$ = this.store.select(ProfilesSelectors.selectError);
+    this.error$ = this.store.select(ProfilesSelectors.selectLoadError);
   }
 
   ngOnInit() {
-
     this.route.paramMap.subscribe( (params: ParamMap) => {
-        this.selectedId = +params.get('id');
         this.store.dispatch(new ProfilesActions.Load());
     });
   }
